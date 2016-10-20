@@ -92,6 +92,20 @@ var socket = io.connect('http://localhost:9000', {
 
 ```
 
+## Authorization Header Requirement
+
+Require Bearer Tokens to be passed in as an Authorization Header
+
+__Server side__:
+
+```javascript
+io.use(socketioJwt.authorize({
+  secret: 'your secret or public key',
+  handshake: true,
+  auth_header_required: true
+}));
+```
+
 ## Handling token expiration
 
 __Server side__:
