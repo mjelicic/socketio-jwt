@@ -35,6 +35,7 @@ declare module 'socketio-jwt' {
     decodedPropertyName?: string;
     encodedPropertyName?: string;
 
+    auth_header_required?: boolean;
     handshake?: boolean;
     required?: boolean;
     timeout?: number;

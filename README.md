@@ -79,9 +79,31 @@ __Client side__:
 Append the jwt token using query string:
 
 ```javascript
+//// token part of query string ////
 var socket = io.connect('http://localhost:9000', {
   'query': 'token=' + your_jwt
 });
+
+
+//// token coming in as Authorization Header ////
+var socket = io.connect('http://localhost:9000', {
+  'extraHeaders': { Authorization: `Bearer ${your_jwt}` }
+});
+
+```
+
+## Authorization Header Requirement
+
+Require Bearer Tokens to be passed in as an Authorization Header
+
+__Server side__:
+
+```javascript
+io.use(socketioJwt.authorize({
+  secret: 'your secret or public key',
+  handshake: true,
+  auth_header_required: true
+}));
 ```
 
 ## Handling token expiration
@@ -137,7 +159,7 @@ To disconnect socket server-side without client-side callback:
 io.sockets.on('connection', socketioJwt.authorize({
   secret: 'secret goes here',
   // No client-side callback, terminate connection server-side
-  callback: false 
+  callback: false
 }))
 ```
 
@@ -153,7 +175,7 @@ To disconnect socket server-side while giving client-side 15 seconds to execute 
 io.sockets.on('connection', socketioJwt.authorize({
   secret: 'secret goes here',
   // Delay server-side socket disconnect to wait for client-side callback
-  callback: 15000 
+  callback: 15000
 }))
 ```
 
