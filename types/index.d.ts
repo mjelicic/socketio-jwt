@@ -33,6 +33,8 @@ declare module 'socketio-jwt' {
     secret: (string | ((request: any, decodedToken: object, callback: ISocketCallback) => void));
 
     decodedPropertyName?: string;
+    encodedPropertyName?: string;
+
     handshake?: boolean;
     required?: boolean;
     timeout?: number;
