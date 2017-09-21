@@ -10,7 +10,7 @@ Authenticate socket.io incoming connections with JWTs. This is useful if you are
 ## Installation
 This fork will be released to the npm repository, but for now you can install directly from GitHub
 
-```
+```bash
 npm install root-core/socketio-jwt
 ```
 
@@ -52,8 +52,8 @@ socket.on('connect', function () {
 The previous approach uses a second roundtrip to send the jwt, there is a way you can authenticate on the handshake by sending the JWT as a query string, the caveat is that intermediary HTTP servers can log the url.
 
 ```javascript
-var io            = require("socket.io")(server);
-var socketioJwt   = require("socketio-jwt");
+var io            = require('socket.io')(server);
+var socketioJwt   = require('socketio-jwt');
 
 //// With socket.io < 1.0 ////
 io.set('authorization', socketioJwt.authorize({
@@ -95,7 +95,6 @@ var socket = io.connect('http://localhost:9000', {
 var socket = io.connect('http://localhost:9000', {
   'extraHeaders': { Authorization: `Bearer ${your_jwt}` }
 });
-
 ```
 
 ## Authorization Header Requirement
@@ -127,10 +126,10 @@ Your client-side code should handle it as below.
 __Client side__:
 
 ```javascript
-socket.on("unauthorized", function(error) {
-  if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+socket.on('unauthorized', function(error) {
+  if (error.data.type == 'UnauthorizedError' || error.data.code == 'invalid_token') {
     // redirect user to login page perhaps?
-    console.log("User's token has expired");
+    console.log('Users token has expired');
   }
 });
 ```
@@ -148,11 +147,11 @@ __Client side__:
 Add a callback client-side to execute socket disconnect server-side.
 
 ```javascript
-socket.on("unauthorized", function(error, callback) {
-  if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+socket.on('unauthorized', function(error, callback) {
+  if (error.data.type == 'UnauthorizedError' || error.data.code == 'invalid_token') {
     // redirect user to login page perhaps or execute callback:
     callback();
-    console.log("User's token has expired");
+    console.log('Users token has expired');
   }
 });
 ```
@@ -190,11 +189,11 @@ Your client-side code should handle it as below.
 __Client side__:
 
 ```javascript
-socket.on("unauthorized", function(error, callback) {
-  if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+socket.on('unauthorized', function(error, callback) {
+  if (error.data.type == 'UnauthorizedError' || error.data.code == 'invalid_token') {
     // redirect user to login page perhaps or execute callback:
     callback();
-    console.log("User's token has expired");
+    console.log('User's token has expired');
   }
 });
 ```
@@ -222,7 +221,6 @@ io.use(socketioJwt.authorize({
   },
   handshake: false
 }));
-
 ```
 
 ## Contribute
@@ -238,9 +236,24 @@ npm test
 
 If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
-## Author
+## Original author
 
 [Auth0](auth0.com)
+
+## Differences to Auth0-repo
+
+* Typescript support (Typings)
+* Fixed authentication in namspaces
+    * With an more correct approach to get the header in the first place!
+* The encoded JWT is stored in `socket.encoded_token`
+    * The propertys name is configurable via `encodedPropertyName` in the option object
+    * Just like the decoded property name via `decodedPropertyName` in the option object
+* Exporting UnauthorizedError allows to throw own rejections / control flow
+* Added `auth_header_required` to option object to reject clients without an authentication header
+* Typos fixed, renamed variables
+* Removed empty example folder
+* Updated dependencies
+* Improved test coverage
 
 ## License
 
