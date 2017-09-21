@@ -1,7 +1,7 @@
 ## This is a fork of Auth0s "socketio-jwt" library
 It reassembles all the changes made by the community, that never got reviewed by Auth0.
 
-These are most likely pull requests and changes by the owner of this fork.
+These are most likely pull requests and changes by the owner of this fork. [See here.](https://github.com/Root-Core/socketio-jwt#differences-to-auth0-repo)
 
 [![Build Status](https://travis-ci.org/auth0/socketio-jwt.svg)](https://travis-ci.org/auth0/socketio-jwt)
 
@@ -193,7 +193,7 @@ socket.on('unauthorized', function(error, callback) {
   if (error.data.type == 'UnauthorizedError' || error.data.code == 'invalid_token') {
     // redirect user to login page perhaps or execute callback:
     callback();
-    console.log('User's token has expired');
+    console.log('Users token has expired');
   }
 });
 ```
