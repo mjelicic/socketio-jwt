@@ -1,13 +1,17 @@
-# This library is no longer maintained/supported by Auth0
+## This is a fork of Auth0s "socketio-jwt" library
+It reassembles all the changes made by the community, that never got reviewed by Auth0.
+
+These are most likely pull requests and changes by the owner of this fork.
 
 [![Build Status](https://travis-ci.org/auth0/socketio-jwt.svg)](https://travis-ci.org/auth0/socketio-jwt)
 
 Authenticate socket.io incoming connections with JWTs. This is useful if you are build a single page application and you are not using cookies as explained in this blog post: [Cookies vs Tokens. Getting auth right with Angular.JS](http://blog.auth0.com/2014/01/07/angularjs-authentication-with-cookies-vs-token/).
 
 ## Installation
+This fork will be released to the npm repository, but for now you can install directly from GitHub
 
 ```
-npm install socketio-jwt
+npm install root-core/socketio-jwt
 ```
 
 ## Example usage
